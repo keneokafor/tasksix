@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: blanchedalmond;
+            padding: 30px;
+        }
+        .quizarea{
+            margin: auto;
+            background-color: rgb(175, 92, 64);
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 500px;
+            max-height: 500px;
+        }
+        h2{
+            font-weight: 800;
+            font-size: 30px;
+            color: rgb(255, 237, 213);
+        }
+        .options button{
+            display: block;
+            padding: 10px;
+            font-size: 18px;
+            color: rgb(0, 0, 0);
+            margin: 10px 0;
+            width: 500px;
+            background-color: antiquewhite;
+            border-radius: 15px;
+        }
+
+        #result{
+            font-size: 20px;
+            font-weight: bolder;
+            color: antiquewhite;
+        }
+    
+    </style>
+
+</head>
+<body>
+    <div class="quizarea">
+        <h2 id="question">Question</h2>
+        <div class="options" id="options"></div>
+        <p id="result"></p>
+        <p id="score"></p>
+    </div>
+
+
+<script>
+    const quizgame = [
+    {
+        question: "WHAT IS A BABY GOAT CALLED?",
+        options: ["Kitten", "Kid", "Puppy", "Cub"],
+        correctanswer: "Kid"
+    },
+
+    {
+        question: "WHAT IS THE CAPITAL STATE OF NIGERIA?",
+        options: ["Abuja", "Kaduna", "Lagos", "Rivers"],
+        correctanswer: "Abuja"
+    },
+
+    {
+        question: "WHAT IS THE PROCESS OF FOOD PRODUCTION BY A PLANT?",
+        options: ["Reproduction", "Digestion", "Pollination", "Photosynthesis"],
+        correctanswer: "Photosynthesis"
+    },
+
+    {
+        question: "WHAT IS THE LARGEST COUNTRY BY POPULATION?",
+        options: ["India", "China", "North Korea", "Nigeria"],
+        correctanswer: "India"
+    },
+
+    {
+        question: "WHAT IS  GROUP OF BIRDS CALLED?",
+        options: ["Bunch", "Herd", "Flock", "Gathering"],
+        correctanswer: "Flock"
+    }
+    ];
+
+    let currentquestion = 0;
+    let score = 0;
+
+    const quizquestion = document.getElementById("question");
+    const quizoptions = document.getElementById("options");
+    const quizresult = document.getElementById("result");
+    const quizscore = document.getElementById("score");
+
+    function startquiz(){
+        if (currentquestion < quizgame.length){
+            quizquestion.textContent = quizgame[currentquestion].question;
+            quizoptions.innerHTML = "";
+            quizresult.textContent = "";
+
+        quizgame[currentquestion].options.forEach(option => {
+            const button = document.createElement ("button");
+            button.textContent = option;
+            button.onclick = () => checkanswer(option);
+            quizoptions.appendChild(button);
+        });
+     }
+        else {
+            quizquestion.textContent= "That's All for Now! Bye Bye👋";
+            quizoptions.innerHTML = "";
+            quizresult.textContent = `Your total score for this quiz is ${score}/${quizgame.length}`;
+        }
+        }
+
+        function checkanswer(selectedanswer){
+            if (selectedanswer === quizgame[currentquestion].correctanswer){
+                quizresult.textContent = "Correct Answer✅ Amazing!";
+                score++;
+                }
+
+                else{
+                    quizresult.textContent = `Wrong Answer❌The Correct Answer: ${quizgame[currentquestion].correctanswer}`;
+                    }
+
+            currentquestion++;
+            setTimeout(startquiz, 1500);       
+            quizscore.textContent = `Total Score: ${score}`;      
+        }
+
+        alert("Welcome to the Quiz. Click Ok to Start or Close Tab to Exit.")
+        startquiz();
+</script>
+</body>
+</html>
